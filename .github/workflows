@@ -1,0 +1,25 @@
+name: Hourly URL Fetch
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every 1 hour
+  workflow_dispatch:      # Allow manual trigger too
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run fetch script
+        run: python fetch_urls.py
